@@ -116,6 +116,8 @@ artifacts {
     archives deobfJar
     archives sourcesJar
 }
+// compile UTF_8
+compileJava.options.encoding = 'UTF-8'
 
 jar.finalizedBy('reobfJar')
 publishing {

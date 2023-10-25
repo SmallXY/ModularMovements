@@ -59,10 +59,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ClientLitener {
-    public static KeyBinding sit = new KeyBinding("Sit/Sliding", 46, "ModularMovements");
-    public static KeyBinding crawling = new KeyBinding("Crawling", 44, "ModularMovements");
-    public static KeyBinding leftProbe = new KeyBinding("Left Probe", 16, "ModularMovements");
-    public static KeyBinding rightProbe = new KeyBinding("Right Probe", 18, "ModularMovements");
+//    public static KeyBinding sit = new KeyBinding("Sit/Sliding", 46, "ModularMovements");
+//    public static KeyBinding crawling = new KeyBinding("Crawling", 44, "ModularMovements");
+    public static KeyBinding leftProbe = new KeyBinding("左侧探头", 16, "CLASH 服务器");
+    public static KeyBinding rightProbe = new KeyBinding("右侧探头", 18, "CLASH 服务器");
 
     public static PlayerState clientPlayerState = new PlayerState.ClientPlayerState();
     public static Map<Integer, PlayerState> ohterPlayerStateMap = new HashMap<Integer, PlayerState>();
@@ -122,8 +122,8 @@ public class ClientLitener {
     }
 
     public void onFMLInit(FMLInitializationEvent event) {
-        ClientRegistry.registerKeyBinding(sit);
-        ClientRegistry.registerKeyBinding(crawling);
+//        ClientRegistry.registerKeyBinding(sit);
+//        ClientRegistry.registerKeyBinding(crawling);
         ClientRegistry.registerKeyBinding(leftProbe);
         ClientRegistry.registerKeyBinding(rightProbe);
         speedInAir = ReflectionHelper.findField(EntityPlayer.class, "speedInAir", "field_71102_ce");
@@ -152,87 +152,87 @@ public class ClientLitener {
         Minecraft.getMinecraft().getTutorial().reload();
     }
 
-    private void onSit() {
-        EntityPlayer clientPlayer = Minecraft.getMinecraft().player;
-        if (clientPlayer == null) {
-            return;
-        }
-        if (Minecraft.getMinecraft().currentScreen != null) {
-            return;
-        }
-
-        //sit
-        if(clientPlayerState.canSit()) {
-            if ((!sitKeyLock && isButtonDown(sit.getKeyCode())) || wannaSliding) {
-                if (!clientPlayerState.isSitting || wannaSliding) {
-                    if (Minecraft.getMinecraft().player.onGround) {
-                        sitKeyLock = true;
-                        wannaSliding = false;
-                        AxisAlignedBB axisalignedbb;
-                        axisalignedbb = new AxisAlignedBB(clientPlayer.posX - 0.1, clientPlayer.posY + 0.1,
-                                clientPlayer.posZ - 0.1, clientPlayer.posX + 0.1, clientPlayer.posY + 1.2,
-                                clientPlayer.posZ + 0.1);
-                        if (!clientPlayer.world.collidesWithAnyBlock(axisalignedbb)) {
-                            if (!clientPlayerState.isSitting) {
-                                clientPlayerState.enableSit();
-                            }
-
-                            if (Minecraft.getMinecraft().player.isSprinting() && ModularMovements.CONFIG.slide.enable) {
-                                if (wannaSliding) {
-                                    clientPlayerSitMoveAmplifierCharging = 1;
-                                }
-                                clientPlayerSitMoveAmplifierCharged = clientPlayerSitMoveAmplifierCharging;
-                                clientPlayerSitMoveAmplifier = ModularMovements.CONFIG.slide.maxForce;
-                                clientPlayerSitMoveVec3d = new Vec3d(clientPlayer.posX - clientPlayer.lastTickPosX, 0,
-                                        clientPlayer.posZ - clientPlayer.lastTickPosZ).normalize();
-                            }
-                        }
-                    }
-                } else {
-                    sitKeyLock = true;
-                    double d0 = 0.3;
-                    if (!clientPlayer.world.collidesWithAnyBlock(
-                            new AxisAlignedBB(clientPlayer.posX - d0, clientPlayer.posY, clientPlayer.posZ - d0,
-                                    clientPlayer.posX + d0, clientPlayer.posY + 1.8, clientPlayer.posZ + d0))) {
-                        clientPlayerSitMoveAmplifier = 0;
-                        clientPlayerState.disableSit();
-                    }
-                }
-            }
-        }
-    }
+//    private void onSit() {
+//        EntityPlayer clientPlayer = Minecraft.getMinecraft().player;
+//        if (clientPlayer == null) {
+//            return;
+//        }
+//        if (Minecraft.getMinecraft().currentScreen != null) {
+//            return;
+//        }
+//
+//        //sit
+//        if(clientPlayerState.canSit()) {
+//            if ((!sitKeyLock && isButtonDown(sit.getKeyCode())) || wannaSliding) {
+//                if (!clientPlayerState.isSitting || wannaSliding) {
+//                    if (Minecraft.getMinecraft().player.onGround) {
+//                        sitKeyLock = true;
+//                        wannaSliding = false;
+//                        AxisAlignedBB axisalignedbb;
+//                        axisalignedbb = new AxisAlignedBB(clientPlayer.posX - 0.1, clientPlayer.posY + 0.1,
+//                                clientPlayer.posZ - 0.1, clientPlayer.posX + 0.1, clientPlayer.posY + 1.2,
+//                                clientPlayer.posZ + 0.1);
+//                        if (!clientPlayer.world.collidesWithAnyBlock(axisalignedbb)) {
+//                            if (!clientPlayerState.isSitting) {
+//                                clientPlayerState.enableSit();
+//                            }
+//
+//                            if (Minecraft.getMinecraft().player.isSprinting() && ModularMovements.CONFIG.slide.enable) {
+//                                if (wannaSliding) {
+//                                    clientPlayerSitMoveAmplifierCharging = 1;
+//                                }
+//                                clientPlayerSitMoveAmplifierCharged = clientPlayerSitMoveAmplifierCharging;
+//                                clientPlayerSitMoveAmplifier = ModularMovements.CONFIG.slide.maxForce;
+//                                clientPlayerSitMoveVec3d = new Vec3d(clientPlayer.posX - clientPlayer.lastTickPosX, 0,
+//                                        clientPlayer.posZ - clientPlayer.lastTickPosZ).normalize();
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    sitKeyLock = true;
+//                    double d0 = 0.3;
+//                    if (!clientPlayer.world.collidesWithAnyBlock(
+//                            new AxisAlignedBB(clientPlayer.posX - d0, clientPlayer.posY, clientPlayer.posZ - d0,
+//                                    clientPlayer.posX + d0, clientPlayer.posY + 1.8, clientPlayer.posZ + d0))) {
+//                        clientPlayerSitMoveAmplifier = 0;
+//                        clientPlayerState.disableSit();
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     @SubscribeEvent
     public void onKeyInput(KeyInputEvent event) {
         EntityPlayer clientPlayer = Minecraft.getMinecraft().player;
         //sit
-        onSit();
+//        onSit();
 
         //crawling
-        if(clientPlayerState.canCrawl()) {
-            if (!crawlingKeyLock && isButtonDown(crawling.getKeyCode())) {
-                crawlingKeyLock = true;
-                if (!clientPlayerState.isCrawling) {
-                    if (Minecraft.getMinecraft().player.onGround) {
-                        clientPlayerState.enableCrawling();
-                        if (Minecraft.getMinecraft().player.isSprinting()) {
-                            Vec3d vec3d = new Vec3d(clientPlayer.posX - clientPlayer.lastTickPosX, 0,
-                                    clientPlayer.posZ - clientPlayer.lastTickPosZ).normalize();
-                            Minecraft.getMinecraft().player.motionX = vec3d.x * clientPlayerSitMoveAmplifierCharging;
-                            Minecraft.getMinecraft().player.motionY = 0.2 * clientPlayerSitMoveAmplifierCharging;
-                            Minecraft.getMinecraft().player.motionZ = vec3d.z * clientPlayerSitMoveAmplifierCharging;
-                        }
-                    }
-                } else {
-                    double d0 = 0.3;
-                    if (!clientPlayer.world.collidesWithAnyBlock(
-                            new AxisAlignedBB(clientPlayer.posX - d0, clientPlayer.posY, clientPlayer.posZ - d0,
-                                    clientPlayer.posX + d0, clientPlayer.posY + 1.8, clientPlayer.posZ + d0))) {
-                        clientPlayerState.disableCrawling();
-                    }
-                }
-            }
-        }
+//        if(clientPlayerState.canCrawl()) {
+//            if (!crawlingKeyLock && isButtonDown(crawling.getKeyCode())) {
+//                crawlingKeyLock = true;
+//                if (!clientPlayerState.isCrawling) {
+//                    if (Minecraft.getMinecraft().player.onGround) {
+//                        clientPlayerState.enableCrawling();
+//                        if (Minecraft.getMinecraft().player.isSprinting()) {
+//                            Vec3d vec3d = new Vec3d(clientPlayer.posX - clientPlayer.lastTickPosX, 0,
+//                                    clientPlayer.posZ - clientPlayer.lastTickPosZ).normalize();
+//                            Minecraft.getMinecraft().player.motionX = vec3d.x * clientPlayerSitMoveAmplifierCharging;
+//                            Minecraft.getMinecraft().player.motionY = 0.2 * clientPlayerSitMoveAmplifierCharging;
+//                            Minecraft.getMinecraft().player.motionZ = vec3d.z * clientPlayerSitMoveAmplifierCharging;
+//                        }
+//                    }
+//                } else {
+//                    double d0 = 0.3;
+//                    if (!clientPlayer.world.collidesWithAnyBlock(
+//                            new AxisAlignedBB(clientPlayer.posX - d0, clientPlayer.posY, clientPlayer.posZ - d0,
+//                                    clientPlayer.posX + d0, clientPlayer.posY + 1.8, clientPlayer.posZ + d0))) {
+//                        clientPlayerState.disableCrawling();
+//                    }
+//                }
+//            }
+//        }
 
         if(ModularMovements.CONFIG.lean.withGunsOnly) {
             if (Loader.isModLoaded("modularwarfare")) {
@@ -622,21 +622,21 @@ public class ClientLitener {
     @SubscribeEvent
     public void onTickRender(RenderTickEvent event) {
         if (event.phase == Phase.START) {
-            if (!isButtonDown(sit.getKeyCode())) {
-                sitKeyLock = false;
-            }
-            if (isButtonDown(sit.getKeyCode())) {
-                if (Minecraft.getMinecraft().player != null) {
-                    if (Minecraft.getMinecraft().player.fallDistance > 1) {
-                        wannaSliding = true;
-                    }
-                }
-            }
-            onSit();
+//            if (!isButtonDown(sit.getKeyCode())) {
+//                sitKeyLock = false;
+//            }
+//            if (isButtonDown(sit.getKeyCode())) {
+//                if (Minecraft.getMinecraft().player != null) {
+//                    if (Minecraft.getMinecraft().player.fallDistance > 1) {
+//                        wannaSliding = true;
+//                    }
+//                }
+//            }
+//            onSit();
 
-            if (!isButtonDown(crawling.getKeyCode())) {
-                crawlingKeyLock = false;
-            }
+//            if (!isButtonDown(crawling.getKeyCode())) {
+//                crawlingKeyLock = false;
+//            }
 
             if (!isButtonDown(leftProbe.getKeyCode()) && !isButtonDown(rightProbe.getKeyCode())) {
                 probeKeyLock = false;
@@ -743,17 +743,17 @@ public class ClientLitener {
                 if (!event.player.onGround && event.player.fallDistance > 1 && !event.player.isInWater()) {
                     clientPlayerSitMoveAmplifier += clientPlayerSitMoveLess;
                 }
-                if (clientPlayerSitMoveAmplifier <= 0) {
-                    if (ModularMovements.CONFIG.sit.autoHold) {
-                        if (!isButtonDown(sit.getKeyCode())) {
-                            clientPlayerState.disableSit();
-                        }
-                    } else {
-                        if (isButtonDown(sit.getKeyCode())) {
-                            clientPlayerState.disableSit();
-                        }
-                    }
-                }
+//                if (clientPlayerSitMoveAmplifier <= 0) {
+//                    if (ModularMovements.CONFIG.sit.autoHold) {
+//                        if (!isButtonDown(sit.getKeyCode())) {
+//                            clientPlayerState.disableSit();
+//                        }
+//                    } else {
+//                        if (isButtonDown(sit.getKeyCode())) {
+//                            clientPlayerState.disableSit();
+//                        }
+//                    }
+//                }
             }
             return;
         }
